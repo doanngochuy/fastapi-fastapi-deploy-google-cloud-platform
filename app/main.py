@@ -11,6 +11,8 @@ from starlette.middleware.cors import CORSMiddleware
 # from app.db.base import engine
 # from app.core.config import settings
 from app.helpers.exception_handler import CustomException, http_exception_handler
+from app.services.srv_user import UserService
+
 
 # logging.config.fileConfig(settings.LOGGING_CONFIG_FILE, disable_existing_loggers=False)
 # Base.metadata.create_all(bind=engine)
@@ -49,4 +51,4 @@ if __name__ == '__main__':
 
 @app.get("/")
 def home():
-    return {"message": "Hello TutLinks.com"}
+    return UserService().get_all_users()
