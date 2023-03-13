@@ -105,4 +105,4 @@ class UserService(object):
 
     @staticmethod
     def get_all_users():
-        return db.session.query(User).all()
+        return db.session.query(User).first()
