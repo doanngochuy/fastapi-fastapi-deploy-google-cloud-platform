@@ -2,6 +2,7 @@ import logging
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi_sqlalchemy import DBSessionMiddleware
 # from fastapi_sqlalchemy import DBSessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
@@ -34,7 +35,7 @@ def get_application() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    # application.add_middleware(DBSessionMiddleware, db_url=settings.DATABASE_URL)
+    application.add_middleware(DBSessionMiddleware, db_url='postgresql+psycopg2://postgres:140Fm993@34.124.220.216:5432/postgres')
     # application.include_router(router, prefix=settings.API_PREFIX)
     # application.add_exception_handler(CustomException, http_exception_handler)
 
