@@ -6,7 +6,7 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 # from fastapi_sqlalchemy import DBSessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
-# from app.api.api_router import router
+from app.api.api_router import router
 # from app.models import Base
 # from app.db.base import engine
 # from app.core.config import settings
@@ -20,7 +20,7 @@ from app.services.srv_user import UserService
 
 def get_application() -> FastAPI:
     application = FastAPI(
-        title="name", docs_url="/docs", redoc_url='/re-docs',
+        title="FASTAPI BASE", docs_url="/docs", redoc_url='/re-docs',
         description='''
         Base frame with FastAPI micro framework + Postgresql
             - Login/Register with JWT
@@ -37,8 +37,9 @@ def get_application() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    application.add_middleware(DBSessionMiddleware, db_url='postgresql+psycopg2://postgres:140Fm993@34.124.220.216:5432/postgres')
-    # application.include_router(router, prefix=settings.API_PREFIX)
+    application.add_middleware(DBSessionMiddleware,
+                               db_url='postgresql+psycopg2://postgres:140Fm993@34.124.220.216:5432/postgres')
+    application.include_router(router, prefix='')
     application.add_exception_handler(CustomException, http_exception_handler)
 
     return application
@@ -47,8 +48,3 @@ def get_application() -> FastAPI:
 app = get_application()
 if __name__ == '__main__':
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-@app.get("/")
-def home():
-    return UserService().get_all_users()
