@@ -7,15 +7,15 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api.api_router import router
-# from app.models import Base
-# from app.db.base import engine
+from app.models import Base
+from app.db.base import engine
 # from app.core.config import settings
 from app.helpers.exception_handler import CustomException, http_exception_handler
 from app.services.srv_user import UserService
 
 
 # logging.config.fileConfig(settings.LOGGING_CONFIG_FILE, disable_existing_loggers=False)
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 
 def get_application() -> FastAPI:
